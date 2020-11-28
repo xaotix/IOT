@@ -25,11 +25,13 @@ const Sobre = (props) => {
 
     return (
         <View style={styles.container}>
-            <Image source={require('.//img/inovacao.png')}/> 
            <View style={styles.header}>
             <View margin={10}>
-              <Text><FontAwesome name="code" size={16} color={vars.cor1} /> Desenvolvido por: Daniel Lins Maciel - 07/2020</Text>
-              <Text><FontAwesome name="comment" size={16} color={vars.cor1} /> Suporte: daniel.maciel@medabil.com.br</Text>
+              <Text><FontAwesome name="code" size={16} color={vars.cor1} /> Desenvolvido por: </Text>
+              <Text>Daniel Maciel</Text>
+              <Text>Israel Tasca da Luz</Text>
+              <Text>Leonardo Maier</Text>
+              <Text><FontAwesome name="comment" size={16} color={vars.cor1} /> Suporte: 1119297@imed.edu.br</Text>
             </View>
           </View>
           <View style={styles.header}>
@@ -66,6 +68,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         margin: 10,
+        backgroundColor: '#ffffff',
     },
     caixaTexto: {
         borderWidth: 1,

@@ -65,16 +65,16 @@ export const autenticar = (user, password) => {
   })
   }
 
-  export const get_tarefas = () => {
+  export const get_acessos = () => {
     return new Promise((resolve, reject) => {
       const response =  axios.post(vars.servidor + 'consultar/', {
         user: vars.usuario.user,
         s: vars.usuario.s,
         Banco: vars.db,
-        Tabela: "pme_tarefas",
+        Tabela: "iot_log_acessos",
         Filtros:
         {
-          id_recurso: vars.usuario.id_user
+          porta: 1
         }
       }
      
@@ -87,16 +87,38 @@ export const autenticar = (user, password) => {
       });
   })
   }
-  export const getPedidos = () => {
+  export const get_registros = () => {
+    return new Promise((resolve, reject) => {
+      const response =  axios.post(vars.servidor + 'consultar/', {
+        user: vars.usuario.user,
+        s: vars.usuario.s,
+        Banco: vars.db,
+        Tabela: "iot_log_temperaturas",
+        Filtros:
+        {
+          porta: 1
+        }
+      }
+     
+      )
+      .then((response) => {
+          const dados = response.data;
+        resolve(dados);
+      }, (erro) => {
+        reject(erro);
+      });
+  })
+  }
+  export const get_acessos_febre = () => {
     return new Promise((resolve, reject) => {
       const response =  axios.post(vars.servidor + 'consultar/', {
         user: vars.usuario.user,
         s: vars.usuario.s,
         Banco: vars.db_comum,
-        Tabela: "pedidos_planejamento_copia",
+        Tabela: "iot_log_acessos_febre",
         Filtros:
         {
-          id: "%%"
+          porta: 1
         }
       }
      

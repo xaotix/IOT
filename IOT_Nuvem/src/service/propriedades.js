@@ -13,4 +13,4 @@ export const usuario = {
   email: "",
   status: "",
 }
-export const cor1 = "#1C3D85"
+export const cor1 = "#685aa4"

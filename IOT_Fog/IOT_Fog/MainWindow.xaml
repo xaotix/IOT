@@ -9,11 +9,12 @@
                   Height="350"
                   WindowStartupLocation="CenterScreen"
                   FontSize="11"
-                  Style="{StaticResource BlankWindow}">
+                  Style="{StaticResource BlankWindow}" Closing="ModernWindow_Closing" Loaded="ModernWindow_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Margin="2,2,2,2">
@@ -28,10 +29,10 @@
             </Grid.RowDefinitions>
             <Label VerticalAlignment="Center" Content="Temperatura = "></Label>
             <TextBox TextAlignment="Center" MaxLength="6" Text="37" VerticalAlignment="Center" Grid.Column="1" x:Name="temperatura" KeyDown="temperatura_KeyDown"></TextBox>
-            <Button Margin="2,2,2,2" VerticalAlignment="Center" Content="Gravar" Grid.Column="3" Click="gravar_temperatura"></Button>
+            <Button Margin="2,2,2,2" VerticalAlignment="Center" Content="Gravar Manual" Grid.Column="3" Click="gravar_temperatura"></Button>
         </Grid>
         <Separator Grid.Row="1"></Separator>
-
+        <RichTextBox x:Name="arduino" Grid.Row="2" TextChanged="arduino_TextChanged"></RichTextBox>
         <DataGrid AutoGenerateColumns="False" IsReadOnly="True" x:Name="lista" Grid.Row="10" HeadersVisibility="Column">
             <DataGrid.Columns>
                 <DataGridTemplateColumn >

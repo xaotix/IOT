@@ -10,6 +10,10 @@ namespace IOT_Fog
 
     public class Registro
     {
+        public DateTime getData()
+        {
+            return new DateTime(ano, mes, dia);
+        }
         public SolidColorBrush cor { get; set; } = Brushes.Green;
 
         public int dia { get; set; } = DateTime.Now.Day;
@@ -76,6 +80,8 @@ namespace IOT_Fog
             string comando = "select * from dlmdev.iot_log_temperaturas as pr " +
                 $"where pr.ano >='{de.Year}' and pr.mes >='{de.Month}' and pr.dia >='{de.Day}'" +
                 $" and pr.ano <='{ate.Year}' and pr.mes <='{ate.Month}' and pr.dia <='{ate.Day}'";
+
+            //retorna a lista
             var consulta = banco.Consulta(comando);
             foreach(var s in consulta.Linhas)
             {
@@ -83,20 +89,24 @@ namespace IOT_Fog
                 registros.Add(reg);
             }
 
-            return registros.OrderByDescending(x=>x.hora_dt).ToList();
+            return registros.OrderByDescending(x=>x.getData()).ToList();
         }
         public DB.Banco banco { get; set; } = new DB.Banco("mysql.dlmdev.com.br","3306","dlmdev", "siLfDgDfLLyEc23", "dlmdev");
-        public bool Gravar(string temperatura, int porta)
+        public bool Gravar(string temperatura, int porta,bool mensagem = true)
         {
+            //converte a temperatua em double
             var temp = ToDouble(temperatura, 2);
             if(temp<=0 | temp>50)
             {
+                if(mensagem)
+                {
                 MessageBox.Show($"Temperatura Inválida: {temperatura} °C");
+                }
                 return false;
             }
             var reg = new Registro();
 
-
+            //grava no banco de dados
             DB.Linha l = new DB.Linha();
             l.Add("temperatura", temperatura);
             l.Add("porta", porta);

@@ -17,7 +17,7 @@ export default function Login(props) {
 
 
     const salvarDados = async () => {
-      await AsyncStorage.setItem('ma', ma);
+      await AsyncStorage.setItem('user', ma);
       await AsyncStorage.setItem('s', password);
     }
     salvarDados();
@@ -51,7 +51,7 @@ export default function Login(props) {
   useEffect(
     () => {
       const pegarDados = async () => {
-        setMa(await AsyncStorage.getItem('ma'))
+        setMa(await AsyncStorage.getItem('user'))
         setPassword(await AsyncStorage.getItem('s'))
       }
       pegarDados();
@@ -68,7 +68,7 @@ export default function Login(props) {
 
         <TextInput
           style={styles.caixaTexto}
-          placeholder="digite seu MA"
+          placeholder="digite sua senha"
           value={ma}
           onChangeText={texto => setMa(texto)}
         />
@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     margin: 10,
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: '#ffffff',
   }, caixaTexto: {
     borderWidth: 1,
     borderColor: "gray",

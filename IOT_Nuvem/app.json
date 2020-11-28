@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "IOT_Nuvem",
-    "slug": "IOT_Nuvem",
+    "name": "IOT_Monitorar_Sala",
+    "slug": "IOT_Monitorar_Sala",
     "platforms": [
       "ios",
       "android",

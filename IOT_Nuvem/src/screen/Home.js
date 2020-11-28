@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, FlatList, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Alert} from 'react-native';
 import * as conexoes from '../service/conexoes'
 import * as vars from '../service/propriedades'
-import { Tab, Tabs, TabHeading, Icon, Container } from 'native-base';
+import { Tab, Tabs, TabHeading, } from 'native-base';
 import { List } from 'react-native-paper';
 import { FontAwesome } from '@expo/vector-icons';
 import { Cell, Section } from 'react-native-tableview-simple';
@@ -11,11 +11,13 @@ import { Cell, Section } from 'react-native-tableview-simple';
 
 const Home = (props) => {
   const { navigation } = props
-  const [tf_icon, set_tf_icon] = useState("star")
+  const [tf_icon, set_tf_icon] = useState("medkit")
   const [tfi_icon, set_tfi_icon] = useState("clock-o")
-  const [tff_icon, set_tff_icon] = useState("check")
+  const [tff_icon, set_tff_icon] = useState("warning")
   const [todastarefas, setTodasTarefas] = useState([])
-  const [tarefas, setTarefas] = useState([])
+  const [acessos, setAcessos] = useState([])
+  const [acessos_febre, setAcessos_febre] = useState([])
+  const [registros, set_registros] = useState([])
   const [tarefasiniciadas, setTarefasiniciadas] = useState([])
   const [tarefasfinalizadas, setTarefafinalizadas] = useState([])
   const [item_selecionado, set_item_selecionado] = useState()
@@ -24,47 +26,22 @@ const Home = (props) => {
 
   useEffect(
     () => {
-      getTarefas()
+      getDados()
     }, []
   )
 
-  const getTarefas = () => {
+  const getDados = () => {
     setLoading(true)
-    conexoes.get_tarefas()
+
+    conexoes.get_acessos()
       .then(retorno => {
         console.log("Retornou!")
 
         if (retorno.Status === "OK") {
-          var tar1 = [];
-          var tar2 = [];
-          var tar3 = [];
           console.log("Status passou!")
-
           setTodasTarefas(retorno.Valores)
-
-          var arrayLength = retorno.Valores.length;
-          for (var i = 0; i < arrayLength; i++) {
-            var s = retorno.Valores[i];
-            if (s.iniciado_em === "" && s.finalizado_em === "") {
-              tar1.push(s);
-            }
-            else if (s.finalizado_em === "" && s.iniciado_em != "") {
-              tar2.push(s);
-            }
-            else {
-              tar3.push(s);
-            }
-          }
-
-          setTarefas(tar1);
-          setTarefasiniciadas(tar2);
-          setTarefafinalizadas(tar3);
-
-          console.log("Mapeou tarefas!");
-
-
-          //Do something
-
+          setAcessos(retorno.Valores);
+          console.log("Mapeou Acessos!");
         }
         else {
           alert(retorno.Status)
@@ -77,63 +54,65 @@ const Home = (props) => {
         console.log(erro);
       }
       )
+
+
+    conexoes.get_acessos_febre()
+      .then(retorno => {
+        console.log("Retornou!")
+
+        if (retorno.Status === "OK") {
+          console.log("Status passou!")
+
+          setAcessos_febre(retorno.Valores);
+          console.log("Mapeou Acessos com febre!");
+        }
+        else {
+          alert(retorno.Status)
+
+          console.log(retorno.Status);
+        }
+      })
+      .catch(erro => {
+        alert(erro)
+        console.log(erro);
+      }
+      )
+
+
+      conexoes.get_registros()
+      .then(retorno => {
+        console.log("Retornou!")
+
+        if (retorno.Status === "OK") {
+          console.log("Status passou!")
+
+          set_registros(retorno.Valores);
+          console.log("Mapeou Acessos com febre!");
+        }
+        else {
+          alert(retorno.Status)
+
+          console.log(retorno.Status);
+        }
+      })
+      .catch(erro => {
+        alert(erro)
+        console.log(erro);
+      }
+      )
+
     setLoading(false);
 
   }
-  const apagar = (selecao) => {
-    Alert.alert(
-      "Excluir Tarefa",
-      "Tem certeza que deseja excluir? Não é possível desfazer.",
-      [
-        {
-          text: "Não",
-          onPress: () => {
 
-          }
-          ,
-          style: "cancel"
-        },
-        {
-          text: "Sim", onPress: () => {
-
-            setLoading(true)
-            console.log("Apagar")
-            conexoes.apagar_tarefa(selecao)
-              .then(retorno => {
-                console.log("Retornou!")
-
-                if (retorno.Status === "OK") {
-                  console.log("A tarefa foi apagada!")
-                  console.log(retorno.Status);
-                  getTarefas()
-                }
-                else {
-                  alert(retorno.Status)
-
-                  console.log(retorno.Status);
-                }
-              })
-              .catch(erro => {
-                alert(erro)
-                console.log(erro);
-              }
-              )
-            setLoading(false)
-          }
-        }
-      ],
-      { cancelable: false }
-    );
-
-
-
-
-  }
 
   useEffect(() => {
-    getTarefas()
+    getDados()
 
   }, [])
+
+
+
 
   const handlePress = () => setExpanded(!expanded);
   return (
@@ -144,21 +123,11 @@ const Home = (props) => {
             <View margin={10}>
               <Text>Bem vindo {vars.usuario.nome}</Text>
               <Text><FontAwesome name="envelope-o" size={16} color={vars.cor1} /> {vars.usuario.email}</Text>
-              <Text><FontAwesome name="user" size={16} color={vars.cor1} /> {vars.usuario.ma}</Text>
-              <Text>Você tem um total de: {todastarefas.length} Tarefa(s)</Text>
-              <Text><FontAwesome name={tfi_icon} size={16} color={vars.cor1} /> {tarefasiniciadas.length} iniciada(s)</Text>
-              <Text><FontAwesome name={tf_icon} size={16} color={vars.cor1} /> {tarefas.length} a fazer</Text>
-              <Text><FontAwesome name={tff_icon} size={16} color={vars.cor1} /> {tarefasfinalizadas.length} finalizada(s)</Text>
+              <Text><FontAwesome name="user" size={16} color={vars.cor1} /> {vars.usuario.user}</Text>
+
             </View>
           </View>
           <View marginBottom={10}>
-            <View style={styles.caixaBotao}>
-              <FontAwesome.Button style={styles.botao} name="star" onPress={
-                () => {
-                  navigation.navigate('Mapa')
-                }
-              }>Adicionar Tarefa</FontAwesome.Button>
-            </View>
             <View style={styles.caixaBotao}>
               <FontAwesome.Button style={styles.botao} name="info-circle" onPress={
                 () => {
@@ -166,13 +135,7 @@ const Home = (props) => {
                 }
               }>Sobre</FontAwesome.Button>
             </View>
-            <View style={styles.caixaBotao}>
-              <FontAwesome.Button style={styles.botao} name="question-circle" onPress={
-                () => {
-                  navigation.replace('FAQ')
-                }
-              }>FAQ</FontAwesome.Button>
-            </View>
+
             <View style={styles.caixaBotao}>
               <FontAwesome.Button style={styles.botao} name="power-off" onPress={
                 () => {
@@ -182,9 +145,9 @@ const Home = (props) => {
             </View>
           </View>
         </Tab>
-        <Tab heading={<TabHeading style={styles.tabHeader}><FontAwesome name={tfi_icon} size={24} color="white" /><Text style={styles.texto}> [{tarefasiniciadas.length}]  </Text></TabHeading>}>
+        <Tab heading={<TabHeading style={styles.tabHeader}><Text style={styles.texto}> Registros </Text></TabHeading>}>
           <FlatList
-            data={tarefasiniciadas}
+            data={registros}
             renderItem={({ item }) =>
               <TouchableOpacity
                 onPress={() => {
@@ -192,66 +155,17 @@ const Home = (props) => {
                 }}
               >
                 <View style={styles.card}>
-                  <List.Accordion title={<Text>{item.pedido}.{item.etapa}.{item.nometarefa}</Text>
-
-                  }
-                    left={props => <FontAwesome name={tfi_icon} size={32} color={vars.cor1} />}
-
-                    onPress={handlePress}>
-
-                    <Cell cellStyle="Subtitle" title={<Text><FontAwesome name="home" size={24} color={vars.cor1} /> {item.obra}</Text>} detail={<Text>{item.descricaotarefa}</Text>} />
-                    <Section>
-                      <Cell title={<Text><FontAwesome name="file-text-o" size={16} style={styles.iconesinternos} /> {item.descricao}</Text>} />
-                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="flag" size={16} style={styles.iconesinternos} /> Iniciar em:</Text>} detail={item.inicio} />
-                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="flag" size={16} style={styles.iconesinternos} /> Finalizar em:</Text>} detail={item.fim} />
-                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="clock-o" size={16} style={styles.iconesinternos} /> Tempo previsto:</Text>} detail={<Text> {item.horas} h/dia</Text>} />
-                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="calendar-plus-o" size={16} style={styles.iconesinternos} /> Iniciado em:</Text>} detail={item.iniciado_em} />
-                      <View margin={5}>
-                        <FontAwesome.Button style={styles.botao} name="flag" onPress={() => navigation.navigate('Apontar', { item })}>Apontar</FontAwesome.Button>
-                      </View>
-                      <View margin={5}>
-                        <FontAwesome.Button style={styles.botao} name="trash-o" onPress={() => apagar(item)}>Apagar</FontAwesome.Button>
-                      </View>
-                    </Section>
-                  </List.Accordion>
-                </View>
-
-              </TouchableOpacity>
-            }
-          />
-
-        </Tab>
-        <Tab heading={<TabHeading style={styles.tabHeader}><FontAwesome name={tf_icon} size={24} color="white" /><Text style={styles.texto}> [{tarefas.length}] </Text></TabHeading>}>
-          <FlatList
-            data={tarefas}
-            renderItem={({ item }) =>
-              <TouchableOpacity
-                onPress={() => {
-                  set_item_selecionado(item);
-                }}
-              >
-                <View style={styles.card}>
-                  <List.Accordion title={<Text>{item.pedido}.{item.etapa}.{item.nometarefa}</Text>
+                  <List.Accordion title={<Text>{item.dia} / {item.mes} / {item.ano} - {item.hora}</Text>
 
                   }
                     left={props => <FontAwesome name={tf_icon} size={32} color={vars.cor1} />}
 
                     onPress={handlePress}>
 
-                    <Cell cellStyle="Subtitle" title={<Text><FontAwesome name="home" size={24} color={vars.cor1} /> {item.obra}</Text>} detail={<Text>{item.descricaotarefa}</Text>} />
+
                     <Section>
-                      <Cell title={<Text><FontAwesome name="file-text-o" size={16} style={styles.iconesinternos} /> {item.descricao}</Text>} />
-                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="flag" size={16} style={styles.iconesinternos} /> Iniciar em:</Text>} detail={item.inicio} />
-                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="flag" size={16} style={styles.iconesinternos} /> Finalizar em:</Text>} detail={item.fim} />
-                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="clock-o" size={16} style={styles.iconesinternos} /> Tempo previsto:</Text>} detail={<Text> {item.horas} h/dia</Text>} />
+                    <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="medkit" size={16} style={styles.iconesinternos} /> Temperatura:</Text>} detail={item.temperatura} />
 
-                      <View margin={5}>
-                        <FontAwesome.Button style={styles.botao} name="flag" onPress={() => navigation.navigate('Apontar', { item })}>Apontar</FontAwesome.Button>
-                      </View>
-                      <View margin={5}>
-
-                        <FontAwesome.Button style={styles.botao} name="trash-o" onPress={() => apagar(item)}>Apagar</FontAwesome.Button>
-                      </View>
                     </Section>
 
                   </List.Accordion>
@@ -262,9 +176,9 @@ const Home = (props) => {
           />
 
         </Tab>
-        <Tab heading={<TabHeading style={styles.tabHeader}><FontAwesome name={tff_icon} size={24} color="white" /><Text style={styles.texto}> [{tarefasfinalizadas.length}]  </Text></TabHeading>}>
+        <Tab heading={<TabHeading style={styles.tabHeader}><Text style={styles.texto}> Status </Text></TabHeading>}>
           <FlatList
-            data={tarefasfinalizadas}
+            data={acessos}
             renderItem={({ item }) =>
               <TouchableOpacity
                 onPress={() => {
@@ -272,31 +186,51 @@ const Home = (props) => {
                 }}
               >
                 <View style={styles.card}>
-                  <List.Accordion title={<Text>{item.pedido}.{item.etapa}.{item.nometarefa}</Text>
+                  <List.Accordion title={<Text>{item.dia} / {item.mes} / {item.ano}</Text>
+
+                  }
+                    left={props => <FontAwesome name="shopping-bag" size={32} color={vars.cor1} />}
+
+                    onPress={handlePress}>
+
+
+                    <Section>
+                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="smile-o" size={16} style={styles.iconesinternos} /> Clientes:</Text>} detail={item.pessoas} />
+                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="fire" size={16} style={styles.iconesinternos} /> Maior temperatura:</Text>} detail={item.max} />
+                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="snowflake-o" size={16} style={styles.iconesinternos} /> Menor temperatura:</Text>} detail={<Text> {item.min}</Text>} />
+                      <Text></Text>
+                    </Section>
+
+                  </List.Accordion>
+                </View>
+
+              </TouchableOpacity>
+            }
+          />
+
+        </Tab>
+        <Tab heading={<TabHeading style={styles.tabHeader}><Text style={styles.texto}> Alertas  </Text></TabHeading>}>
+          <FlatList
+            data={acessos_febre}
+            renderItem={({ item }) =>
+              <TouchableOpacity
+                onPress={() => {
+                  set_item_selecionado(item);
+                }}
+              >
+                <View style={styles.card}>
+                  <List.Accordion title={<Text>{item.dia} / {item.mes} / {item.ano}</Text>
 
                   }
                     left={props => <FontAwesome name={tff_icon} size={32} color={vars.cor1} />}
 
                     onPress={handlePress}>
 
-                    <Cell cellStyle="Subtitle" title={<Text><FontAwesome name="home" size={24} color={vars.cor1} /> {item.obra}</Text>} detail={<Text>{item.descricaotarefa}</Text>} />
                     <Section>
-                      <Cell title={<Text><FontAwesome name="file-text-o" size={16} style={styles.iconesinternos} /> {item.descricao}</Text>} />
-                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="flag" size={16} style={styles.iconesinternos} /> Iniciar em:</Text>} detail={item.inicio} />
-                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="flag" size={16} style={styles.iconesinternos} /> Finalizar em:</Text>} detail={item.fim} />
-                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="clock-o" size={16} style={styles.iconesinternos} /> Tempo previsto:</Text>} detail={<Text> {item.horas} h/dia</Text>} />
+                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="exclamation-circle" size={16} style={styles.iconesinternos} /> Pessoas com febre:</Text>} detail={item.pessoas} />
+                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="fire" size={16} style={styles.iconesinternos} /> Maior febre:</Text>} detail={item.max} />
+                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="snowflake-o" size={16} style={styles.iconesinternos} /> Menor febre:</Text>} detail={<Text> {item.min}</Text>} />
                       <Text></Text>
-                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="calendar-plus-o" size={16} style={styles.iconesinternos} /> Iniciado em:</Text>} detail={item.iniciado_em} />
-                      <Cell cellStyle="RightDetail" title={<Text><FontAwesome name="calendar-check-o" size={16} style={styles.iconesinternos} /> Finalizado em:</Text>} detail={item.finalizado_em} />
-
-
-                      <View margin={5}>
-                        <FontAwesome.Button style={styles.botao} name="flag" onPress={() => navigation.navigate('Apontar', { item })}>Apontar</FontAwesome.Button>
-                      </View>
-                      <View margin={5}>
-
-                        <FontAwesome.Button style={styles.botao} name="trash-o" onPress={() => apagar(item)}>Apagar</FontAwesome.Button>
-                      </View>
                     </Section>
 
                   </List.Accordion>
@@ -318,7 +252,7 @@ export default Home
 
 const styles = StyleSheet.create({
   tabHeader: {
-    backgroundColor: '#1C3D85',
+    backgroundColor: '#685aa4',
   },
   botao: {
     backgroundColor: vars.cor1,
@@ -354,6 +288,7 @@ const styles = StyleSheet.create({
 
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#ffffff',
   },
   caixaTexto: {
     width: "90%",
