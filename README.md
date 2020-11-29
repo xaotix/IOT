@@ -6,6 +6,7 @@ O projeto foi construído com o intuito de fazer a automação de um porta com s
 
 ## Edge
 O Edge Computing foi construído em Arduino Uno, foi utilizado o [Tinkercad](https://www.tinkercad.com/) para simulação.
+
 Foi utilizado os seguintes dispositivos:
   - Arduino Uno
   - Sensor de distancia ultrassônico
