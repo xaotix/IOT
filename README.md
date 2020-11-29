@@ -23,6 +23,6 @@ Foi utilizado os seguintes dispositivos:
 -TODO
 
 Integrantes:
-Daniel Maciel
-Israel Tasca da Luz
-Leonardo Maier
+- Daniel Maciel
+- Israel Tasca da Luz
+- Leonardo Maier
