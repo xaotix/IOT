@@ -1,0 +1,116 @@
+// Importando bibliotecas utilizadas
+#include <LiquidCrystal.h>
+#include <Servo.h>
+
+LiquidCrystal lcd(2, 3, 4, 5, 6, 7);
+
+// Declarando constantes
+const int TMP36 = A0;
+const int buzzer = 8;
+const int led = 9;
+const int servoEntrada = 12;
+const int sensorDistEntrada = 13;
+
+bool dadosFog = false;
+
+Servo s1;
+
+void setup()
+{
+    // Inicializando variáveis e configurar o modo dos pinos
+    pinMode(sensorDistEntrada, INPUT);
+  
+  	pinMode(buzzer, OUTPUT);
+	pinMode(led, OUTPUT);
+	lcd.begin(16,2);
+
+  	s1.attach(servoEntrada);
+  	s1.write(0);
+  
+  	Serial.begin(9600);
+}
+
+// Função para leitura da distancia
+long readUltrasonicDist(int pin)
+{
+  pinMode(pin, OUTPUT);  
+  digitalWrite(pin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(pin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(pin, LOW);
+  pinMode(pin, INPUT);
+
+  return pulseIn(pin, HIGH);
+}
+
+// Função para envio dos dados para fog
+void sendDataFog(long tmpCel)
+{
+  	if(dadosFog){
+      	const int idPorta = 1;
+		Serial.println("---------------------");
+        Serial.print("porta: ");
+  		Serial.println(idPorta);
+      	Serial.print("temperatura: ");
+  		Serial.println(tmpCel);
+        Serial.print("data: ");
+  		Serial.println(__DATE__);
+        Serial.print("hora: ");
+  		Serial.println(__TIME__);
+		Serial.println("---------------------");
+      	dadosFog = false;
+    }
+}
+
+void loop()
+{
+  	// Calculando distancia de um objeto em centimetros
+  	float cmEntrada = 0.01723 * readUltrasonicDist(sensorDistEntrada);
+
+  	// Se o objeto ficar a 1 metro de distancia
+  	if(cmEntrada < 100){
+		// Medindo e calculando a temperatura
+      	float tmp = analogRead(TMP36);
+        float voltagem = (tmp * 5.0)/1024;
+        float milliVolt = voltagem * 1000;
+        float tmpCel = (milliVolt - 500)/10;
+      
+      	// Envia os dados para Fog
+      	sendDataFog(tmpCel);
+      
+      	// Limpando LCD
+      	lcd.clear();
+      
+      	// Validação da temperatura
+        if(tmpCel < 37.5){
+            noTone(buzzer);
+            digitalWrite(led, LOW);
+          	s1.write(180);
+            lcd.setCursor(0, 0);
+            lcd.print("BEM VINDO!");
+            lcd.setCursor(0, 1);
+            lcd.print("Temp.: ");
+            lcd.print(tmpCel);
+        } else {
+            s1.write(0);
+            lcd.setCursor(0, 0);
+            lcd.print("ACESSO NEGADO!");
+            lcd.setCursor(0, 1);
+            lcd.print("Temp.: ");
+            lcd.print(tmpCel);
+      		tone(buzzer, 1000);
+          	digitalWrite(led, HIGH);
+        }
+      	
+  	} else {
+      	dadosFog = true;
+      	lcd.clear();
+      	noTone(buzzer);
+        digitalWrite(led, LOW);
+    	s1.write(0);
+    }
+
+  	delay(500);
+}
+
