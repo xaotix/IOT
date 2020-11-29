@@ -1,6 +1,7 @@
 # INTERNET OF THINGS
 
 Esse projeto tem por objeto demostrar o uso da IOT.
+
 O projeto foi construído com o intuito de fazer a automação de um porta com sensor de temperatura e monitoramento do fluxo de pessoas.
 
 ## Edge
