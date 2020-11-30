@@ -9,6 +9,11 @@ Integrantes:
 
 O projeto foi construído com o intuito de fazer a automação de um porta com sensor de temperatura (febre) e monitoramento do fluxo de pessoas.
 
+## Arquitetura
+![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/ARQUITETURA.png)
+
+
+
 ### Consideração utilizada para reconhecimento de febre
 
 ![N|Solid](https://github.com/xaotix/IOT/blob/main/IOT_Fog/Temperatua_Corporea.png)
