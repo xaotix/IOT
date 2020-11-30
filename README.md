@@ -82,6 +82,33 @@ A aplicação lê a porta COM3 a cada 2 segundos e se o Arduíno enviar o valor 
 
 ![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/FOG.png)
 
+## Api .Net Core
+
+### Versões das Bibliotecas Usadas
+Json 4.6.0
+
+MySQL Data 6.10.9
+
+Active Directory 4.5.0
+
+
+### Requisitos
+
+Instale os seguintes aplicativos:
+
+[IDE Microsoft Visual Studio Community 2019 ou superior](https://visualstudio.microsoft.com/pt-br/vs/community/)
+
+[.Net Core SDK 2.1.1](https://dotnet.microsoft.com/download/dotnet-core/2.1)
+
+[Extensão Keyoti.Conveyor (para poder testar a API com o Postman)](https://marketplace.visualstudio.com/items?itemName=vs-publisher1448185.ConveyorbyKeyoti)
+
+[Postman versão Desktop (para fazer as requisições HTTP)](https://www.postman.com/downloads/)
+
+[Heidi SQL (para consultar no banco de dados)](https://www.heidisql.com/download.php)
+
+[Mysql v10.2 ou superior](https://www.mysql.com/downloads/)
+
+
 
 ## Cloud
 O Cloud foi implementado em React Native, utilizando javascript.
