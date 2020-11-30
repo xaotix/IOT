@@ -31,6 +31,7 @@ Instale os seguintes aplicativos:
 ### Para a Nuvem - React Native
 
 [Download Node.js](https://nodejs.org/en/download/)
+
 Escolha o instalador para a sua plataforma (Sistema Operacional) e arquitetura do processador (32-bits ou 64-bits). 
 
 Instalando o React-Native (Expo)
