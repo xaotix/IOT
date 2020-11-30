@@ -69,6 +69,7 @@ Foi utilizado os seguintes dispositivos:
 
 ## Banco de Dados
 Foi utilizado MySQL 10.2
+
 Script para criação das tabelas:
 
 #### Tabela iot_log_acessos
