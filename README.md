@@ -9,6 +9,14 @@ Integrantes:
 
 O projeto foi construído com o intuito de fazer a automação de um porta com sensor de temperatura (febre) e monitoramento do fluxo de pessoas.
 
+### Consideração utilizada para reconhecimento de febre
+
+![N|Solid](https://github.com/xaotix/IOT/blob/main/IOT_Fog/Temperatua_Corporea.png)
+
+Fonte:
+
+https://www.minhavida.com.br/saude/temas/febre
+
 
 ### Requisitos
 
@@ -119,6 +127,23 @@ CREATE TABLE `iot_log_acessos_febre` (
 ![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/DATASET.png)
 
 
+#### Fórmulas usadas para gerar dados aleatórios
+
+````excel
+
+''Gera 1 dia aleatório entre 1 e 29
+=ALEATÓRIOENTRE(1;29)
+
+''Gera 1 mês aleatório entre 9 e 11
+=ALEATÓRIOENTRE(9;11)
+
+''Gera 1 temperatura aleatória entre 35,5 e 38,5
+=ALEATÓRIOENTRE(355;385)/10
+
+''Gera 1 hora aleatória entre 08:00 e 19:00
+=ALEATÓRIO()*(19-8)/24+7/24
+````
+
 ## Fog
 O Fog foi desenvolvido em C#, utilizando WPF.
 A aplicação lê a porta COM3 a cada 2 segundos e se o Arduíno enviar o valor de temperatura, o sistema grava os dados no banco.
@@ -139,7 +164,7 @@ Active Directory 4.5.0
 
 
 
-### Utilizando a ferramenta
+### Consumindo a API
 
 As chamadas são feitas em POST. É obrigatório o uso dos dados de autenticação para poder rodar.
 
