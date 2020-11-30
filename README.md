@@ -21,7 +21,8 @@ https://www.minhavida.com.br/saude/temas/febre
 ### Requisitos
 
 Instale os seguintes aplicativos:
-#### Para o Fog e Api .Net Core:
+
+#### Para os projetos em C#:Fog (WPF) e Api (.Net Core):
 
 [IDE Microsoft Visual Studio Community 2019 ou superior](https://visualstudio.microsoft.com/pt-br/vs/community/)
 
@@ -36,7 +37,7 @@ Instale os seguintes aplicativos:
 [Mysql v10.2 ou superior](https://www.mysql.com/downloads/)
 
 
-### Para a Nuvem - React Native
+#### Para a Nuvem - React Native
 
 [Download Node.js](https://nodejs.org/en/download/)
 
@@ -58,7 +59,7 @@ Native APP, através do seguinte comando:
 npm install -g create-react-native-app
 `
 
-
+# Estrutura do projeto
 
 ## Edge
 O Edge Computing foi construído em Arduino Uno, foi utilizado o [Tinkercad](https://www.tinkercad.com/) para simulação.
