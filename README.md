@@ -25,6 +25,57 @@ Foi utilizado os seguintes dispositivos:
 
 ![N|Solid](https://uploaddeimagens.com.br/images/002/983/504/original/ImagemProjeto.PNG?1606682879)
 
+## Banco de Dados
+Foi utilizado MySQL 10.2
+Script para criação das tabelas:
+
+#### Tabela iot_log_acessos
+
+````mysql
+CREATE TABLE `iot_log_acessos` (
+	`dia` INT(11) NULL,
+	`mes` INT(11) NULL,
+	`ano` INT(11) NULL,
+	`data` DATE NULL,
+	`pessoas` BIGINT(21) NOT NULL,
+	`max` VARCHAR(30) NULL COLLATE 'utf8_general_ci',
+	`min` VARCHAR(30) NULL COLLATE 'utf8_general_ci',
+	`porta` INT(11) NULL
+) ENGINE=MyISAM;
+````
+
+#### View iot_log_temperaturas
+
+````mysql
+CREATE TABLE IF NOT EXISTS `iot_log_temperaturas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dia` int(11) DEFAULT dayofmonth(current_timestamp()),
+  `mes` int(11) DEFAULT month(current_timestamp()),
+  `ano` int(11) DEFAULT year(current_timestamp()),
+  `temperatura` varchar(30) NOT NULL DEFAULT '',
+  `hora` time DEFAULT curtime(2),
+  `porta` int(11) DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4133 DEFAULT CHARSET=utf8;
+````
+#### View iot_log_acessos_febre
+````mysql
+CREATE TABLE `iot_log_acessos_febre` (
+	`dia` INT(11) NULL,
+	`mes` INT(11) NULL,
+	`ano` INT(11) NULL,
+	`data` DATE NULL,
+	`pessoas` BIGINT(21) NOT NULL,
+	`max` VARCHAR(30) NULL COLLATE 'utf8_general_ci',
+	`min` VARCHAR(30) NULL COLLATE 'utf8_general_ci',
+	`porta` INT(11) NULL
+) ENGINE=MyISAM;
+````
+
+### Dataset Criado
+![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/DATASET.png)
+
+
 ## Fog
 O Fog foi desenvolvido em C#, utilizando WPF.
 A aplicação lê a porta COM3 a cada 2 segundos e se o Arduíno enviar o valor de temperatura, o sistema grava os dados no banco.
@@ -50,3 +101,6 @@ Ele consome uma API desenvolvida em .Net Core, que retorna os registros em JSON.
 ![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/NUVEM_6.png)
 ### Tela de Monitoramento de pessoas com febre
 ![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/NUVEM_7.png)
+
+
+
