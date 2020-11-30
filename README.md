@@ -92,6 +92,8 @@ MySQL Data 6.10.9
 Active Directory 4.5.0
 
 
+
+
 ### Requisitos
 
 Instale os seguintes aplicativos:
@@ -108,7 +110,49 @@ Instale os seguintes aplicativos:
 
 [Mysql v10.2 ou superior](https://www.mysql.com/downloads/)
 
+### Utilizando a ferramenta
 
+As chamadas são feitas em POST. É obrigatório o uso dos dados de autenticação para poder rodar.
+
+Exemplo de chamada:
+````json
+{
+  "user": "usuario",
+  "s": "senha",
+  "Banco":"dlmdev",
+  "Tabela": "iot_log_acessos_febre",
+   "Filtros": 
+    {
+      "porta": "%%"
+    }
+}
+````
+
+Retorno:
+````json
+{
+  "Status":"OK",
+  "id_user":"1",
+  "Nome":"NOME DO USUARIO",
+  "Email":"email@email.com",
+  "Mensagem":"",
+  "Resultados":"21",
+  "Valores": 
+  [
+    {
+      "dia": "28",
+      "mes": "11",
+      "ano": "2020",
+      "data": "28/11/2020 00:00:00",
+      "pessoas": "3",
+      "max": "38",
+      "min": "38",
+      "porta": "1"
+    },
+	...
+  ]
+}
+````
 
 ## Cloud
 O Cloud foi implementado em React Native, utilizando javascript.
