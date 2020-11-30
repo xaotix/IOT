@@ -10,6 +10,14 @@ Construir uma aplicação utilizando os conceitos Edge, Fog e Nuvem para monitor
 
 - Leonardo Maier
 
+## Video Demonstrativo
+
+
+
+[![Video explicativo](http://img.youtube.com/vi/_qUxhRu91zU/0.jpg)](https://www.youtube.com/watch?v=_qUxhRu91zU "Video explicativo")
+
+https://www.youtube.com/watch?v=_qUxhRu91zU
+
 ## Tecnologias usadas
 
 Edge: TinkerCAD
