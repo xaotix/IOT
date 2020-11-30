@@ -20,9 +20,13 @@ Foi utilizado os seguintes dispositivos:
 ![N|Solid](https://uploaddeimagens.com.br/images/002/983/504/original/ImagemProjeto.PNG?1606682879)
 
 ## Fog
--TODO
+O Fog foi desenvolvido em C#, utilizando WPF.
+A aplicação lê a porta COM3 a cada 2 segundos e se o Arduíno enviar o valor de temperatura, o sistema grava os dados no banco.
+
 ## Cloud
--TODO
+O Cloud foi implementado em React Native, utilizando javascript.
+Ele consome uma API desenvolvida em .Net Core, que retorna os registros em JSON. Utilizando a biblioteca Axios.
+
 
 Integrantes:
 - Daniel Maciel
