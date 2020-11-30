@@ -36,22 +36,11 @@ https://www.minhavida.com.br/saude/temas/febre
 
 Instale os seguintes aplicativos:
 
-#### Para os projetos em C#:Fog (WPF) e Api (.Net Core):
+#### Para os projetos em C#:Fog (WPF):
 
 [IDE Microsoft Visual Studio Community 2019 ou superior](https://visualstudio.microsoft.com/pt-br/vs/community/)
 
-[.Net Core SDK 2.1.1](https://dotnet.microsoft.com/download/dotnet-core/2.1)
-
-[Extensão Keyoti.Conveyor (para poder testar a API com o Postman)](https://marketplace.visualstudio.com/items?itemName=vs-publisher1448185.ConveyorbyKeyoti)
-
-[Postman versão Desktop (para fazer as requisições HTTP)](https://www.postman.com/downloads/)
-
-[Heidi SQL (para consultar no banco de dados)](https://www.heidisql.com/download.php)
-
-[Mysql v10.2 ou superior](https://www.mysql.com/downloads/)
-
-
-#### Para a Nuvem - React Native
+#### Para a Nuvem - React Native e Api (.Net Core):
 
 [Download Node.js](https://nodejs.org/en/download/)
 
@@ -72,6 +61,19 @@ Native APP, através do seguinte comando:
 `
 npm install -g create-react-native-app
 `
+
+
+[Mysql v10.2 ou superior](https://www.mysql.com/downloads/)
+
+[Postman versão Desktop (para fazer as requisições HTTP)](https://www.postman.com/downloads/)
+
+[Heidi SQL (para consultar no banco de dados)](https://www.heidisql.com/download.php)
+
+[.Net Core SDK 2.1.1](https://dotnet.microsoft.com/download/dotnet-core/2.1)
+
+[Extensão Keyoti.Conveyor (para poder testar a API com o Postman)](https://marketplace.visualstudio.com/items?itemName=vs-publisher1448185.ConveyorbyKeyoti)
+
+
 
 # Estrutura do projeto
 
