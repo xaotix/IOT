@@ -103,12 +103,12 @@ A aplicação lê a porta COM3 a cada 2 segundos e se o Arduíno enviar o valor 
 
 ![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/FOG.png)
 
-### 2.1 - Fog de Dados
+### 2.1 - Fog / Nuvem (Dados)
 Foi utilizado MySQL 10.2
 
 Script para criação das tabelas:
 
-#### 2.1.1 - Fog - Tabela iot_log_acessos
+#### 2.1.1 - Fog / Nuvem - Tabela iot_log_acessos
 
 ````mysql
 CREATE TABLE `iot_log_acessos` (
@@ -123,7 +123,7 @@ CREATE TABLE `iot_log_acessos` (
 ) ENGINE=MyISAM;
 ````
 
-#### 2.1.2 - Fog - View iot_log_temperaturas
+#### 2.1.2 - Fog / Nuvem - View iot_log_temperaturas
 
 ````mysql
 CREATE TABLE IF NOT EXISTS `iot_log_temperaturas` (
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `iot_log_temperaturas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4133 DEFAULT CHARSET=utf8;
 ````
-#### 2.1.3 - Fog - View iot_log_acessos_febre
+#### 2.1.3 - Fog / Nuvem - View iot_log_acessos_febre
 ````mysql
 CREATE TABLE `iot_log_acessos_febre` (
 	`dia` INT(11) NULL,
@@ -151,14 +151,14 @@ CREATE TABLE `iot_log_acessos_febre` (
 ) ENGINE=MyISAM;
 ````
 
-### 2.2 - Fog - Dataset Criado
+### 2.2 - Fog / Nuvem - Dataset Criado
 
 Como não temos um Arduíno, geramos um dataset para poder simular e testar a ferramenta
 
 ![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/DATASET.png)
 
 
-#### 2.2.1 - Fog - Fórmulas usadas para gerar dados aleatórios
+#### 2.2.1 - Fog / Nuvem - Fórmulas usadas para gerar dados aleatórios
 
 ````excel
 
@@ -181,15 +181,17 @@ Ele consome uma API desenvolvida em .Net Core, que retorna os registros em JSON.
 
 ### 3.1 - Cloud - Api .Net Core
 
-### 3.1.1 - Cloud - Versões das Bibliotecas Usadas
+### 3.1.1 - Cloud - Api .Net Core Bibliotecas Usadas
 Json 4.6.0
 
 MySQL Data 6.10.9
 
-Active Directory 4.5.0
+### 3.1.2 - Cloud - React Native - Bibliotecas Usadas
+Expo 7.0.12
 
+Axios 0.19.2
 
-### 3.1.2 - Cloud - Consumindo a API
+### 3.1.3- Cloud - React Native - Consumindo a API
 
 As chamadas são feitas em POST. É obrigatório o uso dos dados de autenticação para poder rodar.
 
