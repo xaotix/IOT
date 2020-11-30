@@ -1,17 +1,26 @@
 # INTERNET OF THINGS
 
-Esse projeto tem por objeto demostrar o uso da IOT.
+## Proposta
+Construir uma aplicação utilizando os conceitos Edge, Fog e Nuvem para monitorar a temperatura de pessoas na entrada de um estabelecimento, afim de reconhecer possíveis focos de COVID-19 antes dos mesmos adentrarem o recinto.
 
-Integrantes:
+## Integrantes:
 - Daniel Maciel
+
 - Israel Tasca da Luz
+
 - Leonardo Maier
 
-O projeto foi construído com o intuito de fazer a automação de um porta com sensor de temperatura (febre) e monitoramento do fluxo de pessoas.
+## Tecnologias usadas
 
-## Arquitetura
-![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/ARQUITETURA.png)
+Edge: TinkerCAD
 
+Fog: .Net Framework, WPF
+
+Nuvem: MySQL, React-Native, Expo
+
+## Linguagens
+
+C, C# e javascript
 
 
 ### Consideração utilizada para reconhecimento de febre
@@ -66,7 +75,11 @@ npm install -g create-react-native-app
 
 # Estrutura do projeto
 
-## Edge
+## Arquitetura
+![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/ARQUITETURA.png)
+
+
+### 1 - Edge
 O Edge Computing foi construído em Arduino Uno, foi utilizado o [Tinkercad](https://www.tinkercad.com/) para simulação.
 
 Foi utilizado os seguintes dispositivos:
@@ -81,12 +94,19 @@ Foi utilizado os seguintes dispositivos:
 
 ![N|Solid](https://uploaddeimagens.com.br/images/002/983/504/original/ImagemProjeto.PNG?1606682879)
 
-## Banco de Dados
+
+### 2 Fog
+O Fog foi desenvolvido em C#, utilizando WPF.
+A aplicação lê a porta COM3 a cada 2 segundos e se o Arduíno enviar o valor de temperatura, o sistema grava os dados no banco.
+
+![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/FOG.png)
+
+### 2.1 - Fog de Dados
 Foi utilizado MySQL 10.2
 
 Script para criação das tabelas:
 
-#### Tabela iot_log_acessos
+#### 2.1.1 - Fog - Tabela iot_log_acessos
 
 ````mysql
 CREATE TABLE `iot_log_acessos` (
@@ -101,7 +121,7 @@ CREATE TABLE `iot_log_acessos` (
 ) ENGINE=MyISAM;
 ````
 
-#### View iot_log_temperaturas
+#### 2.1.2 - Fog - View iot_log_temperaturas
 
 ````mysql
 CREATE TABLE IF NOT EXISTS `iot_log_temperaturas` (
@@ -115,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `iot_log_temperaturas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4133 DEFAULT CHARSET=utf8;
 ````
-#### View iot_log_acessos_febre
+#### 2.1.3 - Fog - View iot_log_acessos_febre
 ````mysql
 CREATE TABLE `iot_log_acessos_febre` (
 	`dia` INT(11) NULL,
@@ -129,11 +149,14 @@ CREATE TABLE `iot_log_acessos_febre` (
 ) ENGINE=MyISAM;
 ````
 
-### Dataset Criado
+### 2.2 - Fog - Dataset Criado
+
+Como não temos um Arduíno, geramos um dataset para poder simular e testar a ferramenta
+
 ![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/DATASET.png)
 
 
-#### Fórmulas usadas para gerar dados aleatórios
+#### 2.2.1 - Fog - Fórmulas usadas para gerar dados aleatórios
 
 ````excel
 
@@ -150,15 +173,13 @@ CREATE TABLE `iot_log_acessos_febre` (
 =ALEATÓRIO()*(19-8)/24+7/24
 ````
 
-## Fog
-O Fog foi desenvolvido em C#, utilizando WPF.
-A aplicação lê a porta COM3 a cada 2 segundos e se o Arduíno enviar o valor de temperatura, o sistema grava os dados no banco.
+## 3 Cloud
+O Cloud foi implementado em React Native, utilizando javascript.
+Ele consome uma API desenvolvida em .Net Core, que retorna os registros em JSON. Utilizando a biblioteca Axios.
 
-![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/FOG.png)
+### 3.1 - Cloud - Api .Net Core
 
-## Api .Net Core
-
-### Versões das Bibliotecas Usadas
+### 3.1.1 - Cloud - Versões das Bibliotecas Usadas
 Json 4.6.0
 
 MySQL Data 6.10.9
@@ -166,11 +187,7 @@ MySQL Data 6.10.9
 Active Directory 4.5.0
 
 
-
-
-
-
-### Consumindo a API
+### 3.1.2 - Cloud - Consumindo a API
 
 As chamadas são feitas em POST. É obrigatório o uso dos dados de autenticação para poder rodar.
 
@@ -214,24 +231,19 @@ Retorno:
 }
 ````
 
-## Cloud
-O Cloud foi implementado em React Native, utilizando javascript.
-Ele consome uma API desenvolvida em .Net Core, que retorna os registros em JSON. Utilizando a biblioteca Axios.
 
-### Tela de Load
+
+### 3.2.1 - Cloud - Tela de Load
 ![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/NUVEM_1.png)
-### Tela de Login
+### 3.2.2 - Cloud - Tela de Login
 ![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/NUVEM_2.png)
-### Tela Inicial
+### 3.2.3 - Cloud - Tela Inicial
 ![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/NUVEM_3.png)
-### Sobre
+### 3.2.4 - Cloud - Sobre
 ![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/NUVEM_4.png)
-### Tela de Registros Totais
+### 3.2.5 - Cloud - Tela de Registros Totais
 ![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/NUVEM_5.png)
-### Tela Status - Contendo o movimento na loja
+### 3.2.6 - Cloud - Tela Status - Contendo o movimento na loja
 ![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/NUVEM_6.png)
-### Tela de Monitoramento de pessoas com febre
+### 3.2.7 - Cloud - Tela de Monitoramento de pessoas com febre
 ![N|Solid](https://github.com/xaotix/IOT/blob/main/Outros/NUVEM_7.png)
-
-
-
