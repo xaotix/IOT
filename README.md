@@ -7,8 +7,49 @@ Integrantes:
 - Israel Tasca da Luz
 - Leonardo Maier
 
-
 O projeto foi construído com o intuito de fazer a automação de um porta com sensor de temperatura (febre) e monitoramento do fluxo de pessoas.
+
+
+### Requisitos
+
+Instale os seguintes aplicativos:
+#### Para o Fog e Api .Net Core:
+
+[IDE Microsoft Visual Studio Community 2019 ou superior](https://visualstudio.microsoft.com/pt-br/vs/community/)
+
+[.Net Core SDK 2.1.1](https://dotnet.microsoft.com/download/dotnet-core/2.1)
+
+[Extensão Keyoti.Conveyor (para poder testar a API com o Postman)](https://marketplace.visualstudio.com/items?itemName=vs-publisher1448185.ConveyorbyKeyoti)
+
+[Postman versão Desktop (para fazer as requisições HTTP)](https://www.postman.com/downloads/)
+
+[Heidi SQL (para consultar no banco de dados)](https://www.heidisql.com/download.php)
+
+[Mysql v10.2 ou superior](https://www.mysql.com/downloads/)
+
+
+### Para a Nuvem - React Native
+
+[Download Node.js](https://nodejs.org/en/download/)
+Escolha o instalador para a sua plataforma (Sistema Operacional) e arquitetura do processador (32-bits ou 64-bits). 
+
+Instalando o React-Native (Expo)
+
+Sua instalação se dá da seguinte forma:
+
+`
+npm install expo-cli –global
+`
+
+Todos os passos seguintes, dependem da instalação do Expo.
+Alternativamente para o EXPO, podemos usar o Create React
+Native APP, através do seguinte comando:
+
+`
+npm install -g create-react-native-app
+`
+
+
 
 ## Edge
 O Edge Computing foi construído em Arduino Uno, foi utilizado o [Tinkercad](https://www.tinkercad.com/) para simulação.
@@ -94,21 +135,7 @@ Active Directory 4.5.0
 
 
 
-### Requisitos
 
-Instale os seguintes aplicativos:
-
-[IDE Microsoft Visual Studio Community 2019 ou superior](https://visualstudio.microsoft.com/pt-br/vs/community/)
-
-[.Net Core SDK 2.1.1](https://dotnet.microsoft.com/download/dotnet-core/2.1)
-
-[Extensão Keyoti.Conveyor (para poder testar a API com o Postman)](https://marketplace.visualstudio.com/items?itemName=vs-publisher1448185.ConveyorbyKeyoti)
-
-[Postman versão Desktop (para fazer as requisições HTTP)](https://www.postman.com/downloads/)
-
-[Heidi SQL (para consultar no banco de dados)](https://www.heidisql.com/download.php)
-
-[Mysql v10.2 ou superior](https://www.mysql.com/downloads/)
 
 ### Utilizando a ferramenta
 
