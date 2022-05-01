@@ -1,7 +1,7 @@
 # INTERNET OF THINGS
 
 ## Proposta
-CAplicação utilizando os conceitos Edge, Fog e Nuvem para monitorar a temperatura de pessoas na entrada de um estabelecimento, afim de reconhecer possíveis focos de COVID-19 antes dos mesmos adentrarem o recinto.
+Aplicação utilizando os conceitos Edge, Fog e Nuvem para monitorar a temperatura de pessoas na entrada de um estabelecimento, afim de reconhecer possíveis focos de COVID-19 antes dos mesmos adentrarem o recinto.
 
 ## Video Demonstrativo
 
