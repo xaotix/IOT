@@ -1,14 +1,7 @@
 # INTERNET OF THINGS
 
 ## Proposta
-Construir uma aplicação utilizando os conceitos Edge, Fog e Nuvem para monitorar a temperatura de pessoas na entrada de um estabelecimento, afim de reconhecer possíveis focos de COVID-19 antes dos mesmos adentrarem o recinto.
-
-## Integrantes:
-- Daniel Maciel
-
-- Israel Tasca da Luz
-
-- Leonardo Maier
+CAplicação utilizando os conceitos Edge, Fog e Nuvem para monitorar a temperatura de pessoas na entrada de um estabelecimento, afim de reconhecer possíveis focos de COVID-19 antes dos mesmos adentrarem o recinto.
 
 ## Video Demonstrativo
 
